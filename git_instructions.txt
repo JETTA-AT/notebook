@@ -1,4 +1,4 @@
-git使用说明:
+﻿git使用说明:
 
 
 git init
@@ -8,3 +8,24 @@ git add git_instructions.txt
 
 
 
+ssh-keygen -t rsa -C "qq494641355@hotmail.com"
+#回车回车，生成密钥，将用户根目录下.ssh，将pub公钥写入git
+
+
+ssh -T git@github.com
+
+
+git config --global user.name "JETTA-AT"
+git config --global user.email "qq494641355@hotmail.com"
+
+
+# 关联一个远程库命令，git@github.com:JETTA-AT/notebook.git 这个是自己远程库
+git remote add origin git@github.com:JETTA-AT/notebook.git
+
+
+
+git commit -m "init files"
+
+
+
+git push -u origin master  
