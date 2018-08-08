@@ -1,0 +1,53 @@
+Hue & hive 权限设置
+
+首先是hive特权账户开启
+
+adduser hive 
+
+#修改权限
+vim /etc/passwd
+
+
+sudo usermod -a -G hive hadoop 
+
+sudo chmod 774 /opt/hadoop-2.7.6
+
+-------------------------------------------------------------------------
+use hive;
+
+#其中TBL_PRIVS存储了表/视图的授权信息
+select * from TBL_PRIVS;
+
+#Hive中所有数据库基本信息的表DBS数据字典
+
+
+从mysql存储的Hive元数据表数据字典看，Hive是基于元数据mysql管理多用户权限，用户权限信息都存储在元数据表中。要重点理解是，mysql只是保存Hive的元数据，mysql本身的用户和Hive没有关系，Hive只是把自己的用户信息保存在mysql元数据表中。数据字典中关于权限元数据总结如下：
+
+Db_privs:记录了User/Role在DB上的权限
+Tbl_privs:记录了User/Role在table上的权限
+Tbl_col_privs：记录了User/Role在table column上的权限
+Roles：记录了所有创建的role
+Role_map：记录了User与Role的对应关系
+
+-----------------------------------------------------------------------
+Hive用户权限管理
+
+第一：在hive-site.xml文件中配置参数开启权限认证
+
+<property>
+<name>hive.security.authorization.enabled</name>
+<value>true</value>
+<description>enableor disable the hive clientauthorization</description>
+</property>
+<property>
+<name>hive.security.authorization.createtable.owner.grants</name>
+<value>ALL</value>
+<description>theprivileges automatically granted to the ownerwhenever a table gets created. Anexample like "select,drop" willgrant select and drop privilege to theowner of the table</description>
+</property>
+
+hive.security.authorization.enabled参数是开启权限验证，默认为false。
+hive.security.authorization.createtable.owner.grants参数是指表的创建者对表拥有所有权限。
+
+
+
+
