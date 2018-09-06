@@ -29,3 +29,14 @@ git commit -m ""
 git pull --rebase origin master
 
 git push -u origin master
+
+
+-------------------------------------------
+
+git log --oneline 
+
+git reset --hard (commit_id)
+
+
+
+
